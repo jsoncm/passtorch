@@ -1,0 +1,21 @@
+{
+  "name": "cross-agent-memory-prototype",
+  "version": "0.0.1",
+  "private": true,
+  "description": "SPEC-057 原型：跨 Agent 中立记忆层。隔离于主项目，评审前不合入。",
+  "type": "module",
+  "scripts": {
+    "daemon": "tsx daemon/index.ts",
+    "adapter": "tsx mcp-adapter/index.ts",
+    "smoke": "tsx smoke.ts",
+    "clean": "rm -f data/memory.jsonl data/calls.jsonl data/.port"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.27.1",
+    "zod": "*"
+  },
+  "devDependencies": {
+    "tsx": "*",
+    "@types/node": "*"
+  }
+}

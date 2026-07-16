@@ -1,0 +1,46 @@
+# 接入 Codex（OpenAI Codex CLI）
+
+让 Codex 通过 MCP 连上**同一个** daemon —— 与 Claude Code 共享同一份记忆。
+
+## 前置
+
+daemon 必须已在运行（与 Claude Code 接入共用同一个 daemon 进程）：
+
+```bash
+cd prototypes/057-cross-agent-memory
+bun run daemon
+```
+
+## 配置 `~/.codex/config.toml`
+
+在 Codex 的 `mcp_servers` 段追加：
+
+```toml
+[mcp_servers.cross-agent-memory]
+command = "<绝对路径>/node_modules/.bin/tsx"
+args = [
+  "<绝对路径>/prototypes/057-cross-agent-memory/mcp-adapter/index.ts",
+  "--agent=codex",
+]
+```
+
+> 关键差异：`--agent=codex`。它让 Codex 写入的记忆 `who=codex`，而 Claude Code 写入的 `who=claude-code`。
+> 两个适配器**指向同一个 daemon**（都读 `data/.port`），因此共享同一份记忆库——这就是「跨厂商中立」的架构根据。
+
+## 验证跨厂商闭环（V1）
+
+1. 在 **Claude Code** 里 `remember` 一条（如「放弃 WebSocket 改用 SSE」）。
+2. 关闭 Claude Code。
+3. 在 **Codex** 里 `recall` 同一个 project，关键词命中——取回 Claude Code 写的那条，`who=claude-code`。
+4. 打开观测页，调用流显示 `[claude-code] remember` → `[codex] recall` 命中同一 id。
+
+若第 3 步取回成功 → **核心假设成立：换厂商 Agent 也能想起**。
+
+## 自动化验证（不依赖真实 CLI）
+
+`verify-m3.ts` 用两个不同 `--agent` 身份的适配器进程模拟该闭环，验证架构层面的跨厂商共享：
+
+```bash
+bun run daemon &            # 先起 daemon
+../../node_modules/.bin/tsx verify-m3.ts
+```
