@@ -1,0 +1,20 @@
+{
+  "name": "passtorch",
+  "version": "0.1.0",
+  "description": "Local-first cross-agent memory daemon and MCP server",
+  "type": "module",
+  "bin": {
+    "passtorch": "dist/bin.js"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch"
+  },
+  "keywords": [
+    "mcp",
+    "agent",
+    "memory",
+    "daemon"
+  ],
+  "license": "MIT"
+}
