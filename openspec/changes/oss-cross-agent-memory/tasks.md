@@ -12,9 +12,9 @@
 
 ## 评审门（M-GATE，先于所有 P 任务）
 
-- [ ] **G.1** 评审 spec §8 三问：是否建独立开源仓库 / v1 范围（MUST·SHOULD·DEFER）是否成立 / open-core 切分红线是否认同
-- [ ] **G.2** 追认命名与建仓已定案（名 = `passtorch`；落点 = `~/per-wspace/oss/passtorch/`）——已定案，评审只需确认无异议，无需再拍名
-- [ ] **G.3** 决策记录归档；**通过 → 另立建仓工单，本清单转可执行；否决 → 记录结论，原型留 SPEC-057 隔离区或归档**
+- [x] **G.1** 评审 spec §8 三问：是否建独立开源仓库 / v1 范围（MUST·SHOULD·DEFER）是否成立 / open-core 切分红线是否认同
+- [x] **G.2** 追认命名与建仓已定案（名 = `passtorch`；落点 = `~/per-wspace/oss/passtorch/`）——已定案，评审只需确认无异议，无需再拍名
+- [x] **G.3** 决策记录归档；**通过 → 另立建仓工单，本清单转可执行；否决 → 记录结论，原型留 SPEC-057 隔离区或归档**
 
 > G.1~G.3 未通过前，P0~P7 全部冻结。
 
@@ -25,8 +25,8 @@
 > 名与落点已定案（`passtorch` @ `~/per-wspace/oss/passtorch/`），本组只做占用核查与目录就位，非重新拍名。
 
 - [x] **N.1** 查 npm 包名占用（`npm view passtorch`）；被占则退兜底变体（`passtorch-mcp` / `agent-passtorch`，不改火炬叙事）并回填终名
-- [ ] **N.2** 查 GitHub org/repo 名 `passtorch` 可用性 + 域名（可选）
-- [ ] **N.3** 在 workspace 根建 `~/per-wspace/oss/` 目录，确认 `oss/passtorch/` 落点与商业仓库平级、独立 git（不纳入 `ecs_agentdrive_client` 版本库）
+- [x] **N.2** 查 GitHub org/repo 名 `passtorch` 可用性 + 域名（可选）
+- [x] **N.3** 在 workspace 根建 `~/per-wspace/oss/` 目录，确认 `oss/passtorch/` 落点与商业仓库平级、独立 git（不纳入 `ecs_agentdrive_client` 版本库）
 
 ---
 
@@ -49,10 +49,10 @@ P0 仓库骨架 ──▶ P1 store+schema ──▶ P2 daemon(HTTP/SSE/观测页
 
 ## P0 — 仓库骨架（纯 Node 产物基座）
 
-- [ ] **T0.1** 于 `~/per-wspace/oss/passtorch/` `git init` 独立仓库；MIT `LICENSE`；`package.json`（`name:passtorch`、`type:module`、`bin` 指 `dist/bin.js`、shebang）
-- [ ] **T0.2** TS + `tsup`/`tsc` 构建，产物**纯 JS、`node` 直跑**（零 bun 依赖）；开发脚本可用 bun
-- [ ] **T0.3** `env-paths` 解析跨平台数据 / 配置目录（plan §2.1）
-- [ ] **T0.4** `bin.ts` 入口：裸调用 → server 模块；有子命令 → 惰性 import commander（热路径保护，plan §1.1）
+- [x] **T0.1** 于 `~/per-wspace/oss/passtorch/` `git init` 独立仓库；MIT `LICENSE`；`package.json`（`name:passtorch`、`type:module`、`bin` 指 `dist/bin.js`、shebang）
+- [x] **T0.2** TS + `tsup`/`tsc` 构建，产物**纯 JS、`node` 直跑**（零 bun 依赖）；开发脚本可用 bun
+- [x] **T0.3** `env-paths` 解析跨平台数据 / 配置目录（plan §2.1）
+- [x] **T0.4** `bin.ts` 入口：裸调用 → server 模块；有子命令 → 惰性 import commander（热路径保护，plan §1.1）
 
 **产出验证**：`npx .` 能跑起一个 hello server；`node dist/bin.js status` 能进 CLI 分支。
 
